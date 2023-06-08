@@ -1,0 +1,336 @@
+
+	<!DOCTYPE html>
+    {% load static %}
+	<html lang="zxx" class="no-js">
+	<head>
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="{% static 'img/elements/fav.png' %}">
+		<!-- Author Meta -->
+		<meta name="author" content="colorlib">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Book</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+			<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+			<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+			<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+			<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+			<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+			<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+		</head>
+		<body>
+		  <header id="header" id="home">
+		    <div class="container">
+		    	<div class="row align-items-center justify-content-between d-flex">
+			      <div id="logo">
+			        <a href="#"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+			      </div>
+			      <nav id="nav-menu-container">
+			        <ul class="nav-menu">
+			          <li class="menu-active"><a href="{% url 'home' %}">Home</a></li>
+			          <li><a href="#product">Product</a></li>
+<!--			          <li><a href="{% static 'index.html#fact' %}">Fact</a></li>-->
+<!--			          <li><a href="{% static 'index.html#price' %}">Price</a></li>-->
+			        	<li class="menu-has-children"><a href="#category">Category</a>
+				            <ul>
+								{% for i in data %}
+				              <li><a href="{% url 'product' itemcat=i.categoryname %}">{{i.categoryname}}</a></li>
+								 {% endfor %}
+
+				            </ul>
+				          </li>
+				          <li class="menu-has-children"><a href="">Genres</a>
+				            <ul>
+									{% for i in gen %}
+				              <li><a href="{% url 'genres' itemcat=i.GenreName %}" >{{i.GenreName}}</a></li>
+								 {% endfor %}
+				            </ul>
+				          </li>
+			        </ul>
+			      </nav><!-- #nav-menu-container -->
+		    	</div>
+		    </div>
+		  </header><!-- #header -->
+
+			<!-- start banner Area -->
+			<section class="banner-area"  style="background-image: url(https://wallpapercave.com/wp/wp2036944.jpg);background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;" id="home">
+				<div class="container">
+					<div class="row fullscreen d-flex align-items-center justify-content-start">
+						<div class="banner-content col-lg-7">
+							<h1 class="text-uppercase">{{product.Categoryname}}</h1>
+							<h2 class="text-white text-uppercase">{{product.Name}}</h2>
+							<p class="text-white pt-20 pb-20">
+							{{product.About}}
+							</p>
+						</div>
+						<div class="col-lg-5 banner-right">
+
+							<img class="img-fluid" src="" alt="">
+
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->
+
+		<!-- single product Start -->
+			<section class="banner-area" id="product">
+				<div class="container">
+					<div class="row d-flex align-items-center justify-content-start">
+						<div class="main-wrapper" style="padding:10px" >
+							<div class="card mb-3" style="max-width: 1990px;height:580px;padding:25px">
+								<form method="post" action="{% url 'savecart' %}" enctype="multipart/form-data">
+									{% csrf_token %}
+									<div class="row g-0">
+										<div class="col-md-4">
+											<img src="{{product.Imagee.url}}" name="" style="width:340px;height:500px" class= alt="...">
+<!--						<input type="image" name="productimagee" value="{{product.Imagee.url}}">-->
+										</div>
+										<div class="col-md-8">
+						<div class="card-body">
+							<h1 class="card-title">{{product.Name}}</h1>
+							<input type="hidden" class="form-control" id="" value="{{request.session.usernamel}}"  name="user">
+							<input type="hidden" name="pdf" value="{{product.Pdf}}">
+							<input type="hidden" name="productname" value="{{product.Name}}">
+							<p class="card-text">{{product.Author}}</p>
+							<h6 class="card-text">{{product.Publisher}}</h6><br><br>
+							<input type="hidden" name="productlanguage" value="{{product.Language}}">
+									<div class="row row-cols-5">
+										<div class="col">
+											<div class="p-0">
+												<h5><span class="border border-light">${{product.Price}}</span></h5>
+											</div>
+										</div>
+										<div class="col-">
+											<div class="p-0">
+								<h5><span class="border border-light">{{product.Rating}} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+									</svg></span></h5>
+											</div>
+										</div>
+										<div class="col">
+											<div class="p-0">
+								<h5><span class="border border-light">{{product.Categoryname}} </span></h5>
+											</div>
+										</div>
+										<div class="col">
+											<div class="p-0">
+												<h5><span class="border border-light">{{product.Page}}.Pages</span></h5>
+											</div>
+										</div>
+									</div>
+							<div class="section-top-border">
+						<h4 class="mb-30">About</h4>
+						<div class="row">
+							<div class="col-lg-18">
+								<blockquote class="generic-blockquote">{{product.About}}</blockquote>
+							</div>
+						</div>	<button href="" class="genric-btn danger"> <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
+</svg></span> Add</button>
+<!--									<a href="" class="genric-btn danger">Purchase Now</a>-->
+									<a class="genric-btn danger" data-bs-toggle="collapse" href="#collapseWidthExample" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
+  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></span> Info</a>
+
+								</div>
+
+					<input type="hidden" id="price" name="productprice" value="{{product.Price}}" >
+							</div></div><br>
+
+
+
+								</div>
+						</div>
+				</form>
+					</div>
+					</div>
+					</div>
+				</div>
+			</section>
+		  <div class="bg-dark"  style="padding:20px">
+<div class="row height align-items-center justify-content-center ">
+  <div class="collapse collapse-horizontal bg-dark" id="collapseWidthExample">
+    <div class="card card-body " style="max-width: 2000px;">
+      		  <div class="section-top-border  ">
+						<h3 class="mb-30">Book Info</h3>
+							<div class="progress-table ">
+								<div class="table-head ">
+									<div class="serial">No.</div>
+									<div class="country">Name</div>
+									<div class="visit">Info</div>
+								</div>
+								<div class="table-row">
+									<div class="serial">1</div>
+									<div class="country">Name</div>
+									<div class="visit">{{product.Name}}</div>
+								</div><div class="table-row">
+									<div class="serial">2</div>
+									<div class="country">Type</div>
+									<div class="visit">{{product.Categoryname}}</div>
+								</div><div class="table-row">
+									<div class="serial">3</div>
+									<div class="country">Genres</div>
+									<div class="visit">{{product.Genres}}</div>
+								</div><div class="table-row">
+									<div class="serial">4</div>
+									<div class="country">Rating</div>
+									<div class="visit">{{product.Rating}}</div>
+								</div>
+								<div class="table-row">
+									<div class="serial">5</div>
+									<div class="country">Language</div>
+									<div class="visit">{{product.Language}}</div>
+								</div><div class="table-row">
+									<div class="serial">6</div>
+									<div class="country">Author</div>
+									<div class="visit">{{product.Author}}</div>
+								</div><div class="table-row">
+									<div class="serial">7</div>
+									<div class="country">Publisher</div>
+									<div class="visit">{{product.Publisher}}</div>
+								</div><div class="table-row">
+									<div class="serial">8</div>
+									<div class="country">Published On</div>
+									<div class="visit">{{product.Date}}</div>
+								</div><div class="table-row">
+									<div class="serial">9</div>
+									<div class="country">Price</div>
+									<div class="visit">{{product.Price}}</div>
+								</div><div class="table-row">
+									<div class="serial">10</div>
+									<div class="country">Page</div>
+									<div class="visit">{{product.Page}}</div>
+								</div><div class="table-row">
+									<div class="serial">11</div>
+									<div class="country">About</div>
+								<blockquote class="multiple-text"></blockquote>
+								</div>
+						</div>
+					</div></div>
+
+    </div>
+  </div>
+</div>
+			<!-- End single product -->
+
+			<!-- start footer Area -->
+			<footer class="footer-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-5 col-md-6 col-sm-6">
+							<div class="single-footer-widget text-white">
+								<h6>About Us</h6>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+								</p>
+								<p class="footer-text text-white">
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								</p>
+							</div>
+						</div>
+						<div class="col-lg-5  col-md-6 col-sm-6">
+							<div class="single-footer-widget text-white">
+								<h6>Newsletter</h6>
+								<p>Stay update with our latest</p>
+								<div class="" id="mc_embed_signup">
+									<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+										<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+			                            	<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+			                            	<div style="position: absolute; left: -5000px;">
+												<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+											</div>
+
+										<div class="info"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+							<div class="single-footer-widget text-white">
+								<h6>Follow Us</h6>
+								<p>Let us be social</p>
+								<div class="footer-social d-flex align-items-center">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+									<a href="#"><i class="fa fa-dribbble"></i></a>
+									<a href="#"><i class="fa fa-behance"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- End footer Area -->
+
+			<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+			<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+			<script type="text/javascript" src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA' %}"></script>
+  			<script src="{% static 'js/easing.min.js' %}"></script>
+			<script src="{% static 'js/hoverIntent.js' %}"></script>
+			<script src="{% static 'js/superfish.min.js' %}"></script>
+			<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+			<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+			<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+			<script src="{% static 'js/jquery.sticky.js' %}"></script>
+			<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+			<script src="{% static 'js/parallax.min.js' %}"></script>
+			<script src="{% static 'js/waypoints.min.js' %}"></script>
+			<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+			<script src="{% static 'js/mail-script.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+
+	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning' );
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error' );
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success' );
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+		<style>
+			.nav-menu a:hover,
+        .nav-menu a.active{
+            color: #0ef;
+        }
+		</style>
+		  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+   <script>
+    var typed=new Typed(".multiple-text",{
+        strings:["{{product.About}}"],
+        typeSpeed:100,
+        backSpeed:10,
+        backDelay:1000,
+    })
+   </script>
+		</body>
+	</html>

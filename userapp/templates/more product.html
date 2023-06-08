@@ -1,0 +1,262 @@
+
+	<!DOCTYPE html>
+    {% load static %}
+	<html lang="zxx" class="no-js">
+	<head>
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="{% static 'img/elements/fav.png' %}">
+		<!-- Author Meta -->
+		<meta name="author" content="colorlib">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Book</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+			<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+			<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+			<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+			<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+			<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+			<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		</head>
+		<body>
+			<!-- Start navbar Area -->
+		  <header id="header" id="home">
+		    <div class="container">
+		    	<div class="row align-items-center justify-content-between d-flex">
+			      <div id="logo">
+			        <a href="{% static 'index.html' %}"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+			      </div>
+			      <nav id="nav-menu-container">
+			        <ul class="nav-menu">
+			          <li class="menu-active"><a href="{% url 'home' %}">Home</a></li>
+			          <li><a href="#product">Product</a></li>
+<!--			          <li><a href="{% static 'index.html#fact' %}">Fact</a></li>-->
+<!--			          <li><a href="{% static 'index.html#price' %}">Price</a></li>-->
+			        	<li class="menu-has-children"><a href="#">Category</a>
+				            <ul>
+								 {% for i in data %}
+				              <li><a href="{% url 'product' itemcat=i.categoryname %}">{{i.categoryname}}</a></li>
+								 {% endfor %}
+
+				            </ul>
+				          </li>
+				          <li class="menu-has-children"><a href="">Genres</a>
+				            <ul>
+								{% for i in gen %}
+				              <li><a href="{% url 'genres' itemcat=i.GenreName %}" >{{i.GenreName}}</a></li>
+								 {% endfor %}
+				            </ul>
+				          </li>
+			        </ul>
+			      </nav><!-- #nav-menu-container -->
+		    	</div>
+		    </div>
+		  </header>
+			<!-- end navbar Area -->
+
+			<!-- Start banner Area -->
+			<section class="" style="background-image: url(https://www.pcclean.io/wp-content/uploads/2020/4/6ZN3yi.jpg);background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;" id="home">
+				<div class="container">
+					<div class="row fullscreen d-flex align-items-center justify-content-start">
+						<div class="banner-content col-lg-7">
+<!--							<h1 class="text-white text-uppercase animated slideInLeft">a book can change your life</h1>-->
+<!--							<h1 class="text-uppercase animated slideInLeft">-->
+<!--									a book can change your life-->
+<!--							</h1>-->
+<!--							<p class="text-white pt-20 pb-20"><span class="text-home"></span></p>-->
+<!--							<a href="#" class="primary-btn text-uppercase animated slideInLef">Buy Now for $9.99</a>-->
+						</div>
+						<div class="col-lg-5 banner-right ">
+							<h1 class="text-white text-uppercase animated slideInLeft">a book can change your life</h1>
+							<p class="text-white pt-20 pb-20"><span class="text-home"></span></p>
+							<img class="img-fluid" src="" alt="">
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->
+
+			<!-- Start product Area -->
+				<section class="banner-area flexible" id="product">
+					<div class="row  d-flex align-items-center justify-content-center">
+
+						{% for i in products %}
+						<div class="container1" style="width: 28rem;padding:50px">
+							<div class="card">
+								  <div class="imgbx">
+									  <img src="{{i.Imagee.url}}">
+								  </div>
+								<div class="content">
+								<h5 >{{i.Name}}</h5>
+								<p><h4><span>{{i.Rating}}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">-->
+  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+									</svg></span><span>    $.{{i.Price}}</span></h4></p>
+								<a href="{% url 'singleproduct' dataid=i.id %}" class="genric-btn danger">Go Purchase</a>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+			 </section>
+			<!-- end product Area -->
+
+			<!-- start footer Area -->
+			<footer class="footer-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-5 col-md-6 col-sm-6">
+							<div class="single-footer-widget">
+								<h6>About Us</h6>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+								</p>
+								<p class="footer-text">
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								</p>
+							</div>
+						</div>
+						<div class="col-lg-5  col-md-6 col-sm-6">
+							<div class="single-footer-widget">
+								<h6>Newsletter</h6>
+								<p>Stay update with our latest</p>
+								<div class="" id="mc_embed_signup">
+									<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+										<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+			                            	<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+			                            	<div style="position: absolute; left: -5000px;">
+												<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+											</div>
+
+										<div class="info"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+							<div class="single-footer-widget">
+								<h6>Follow Us</h6>
+								<p>Let us be social</p>
+								<div class="footer-social d-flex align-items-center">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+									<a href="#"><i class="fa fa-dribbble"></i></a>
+									<a href="#"><i class="fa fa-behance"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- End footer Area -->
+
+			<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+			<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+			<script type="text/javascript" src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA' %}"></script>
+  			<script src="{% static 'js/easing.min.js' %}"></script>
+			<script src="{% static 'js/hoverIntent.js' %}"></script>
+			<script src="{% static 'js/superfish.min.js' %}"></script>
+			<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+			<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+			<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+			<script src="{% static 'js/jquery.sticky.js' %}"></script>
+			<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+			<script src="{% static 'js/parallax.min.js' %}"></script>
+			<script src="{% static 'js/waypoints.min.js' %}"></script>
+			<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+			<script src="{% static 'js/mail-script.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+    <style>
+
+
+        .container1{
+            position: relative;
+            width: 1100px;
+            display: flex;
+            justify-self: center;
+            align-self: center;
+            flex-wrap:wrap;
+            padding: 30px;
+        }
+        .container1 .card{
+            position: relative;
+            max-width: 60rem;
+            height: 235px;
+            background: #ceeefd;
+            margin: 50px 50px;
+            padding: 10px 40px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px  20px rgba(0,0,0,0.5);
+            transition: 0.3s ease-in-out;
+
+        }
+        .container1 .card:hover{
+            height: 340px;
+        }
+        .container1 .card .imgbx{
+            position: relative;
+            max-width: 150px;
+            height: 210px;
+            background: #fff;
+            top: -60px;
+            z-index: 1;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+
+
+        }
+        .container1 .card .imgbx img{
+            max-width: 100%;
+            max-height: 210px;
+            border-radius: 0px;
+        }
+        .container1 .card .content{
+            position: relative;
+            margin-top: -140px;
+            padding: 10px 15px;
+            text-align: center;
+            color: #111;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s  ease-in-out;
+        }
+        .container1 .card:hover .content{
+            visibility: visible;
+            opacity: 1;
+            margin-top: -40px;
+            transition-delay: 0.3s;
+        }
+    </style>
+				<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+			<script>
+    var typed=new Typed(".text-home",{
+        strings:[" A book is a number of pieces of paper, usually with words printed on them, which are fastened together and fixed inside a cover of stronger paper or cardboard. Books contain information, stories, or poetry"],
+        typeSpeed:200,
+        backSpeed:10,
+        backDelay:1000,
+        loop:true,
+
+    })
+   </script>
+			<style>
+			.nav-menu a:hover,
+        .nav-menu a.active{
+            color: #0ef;
+        }
+		</style>
+		</body>
+	</html>

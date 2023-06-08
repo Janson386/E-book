@@ -1,0 +1,553 @@
+
+	<!DOCTYPE html>
+	{% load static %}
+	<html lang="zxx" class="no-js">
+	<head>
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+		<!-- Author Meta -->
+		<meta name="author" content="codepixer">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Book Custemer</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+			<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+			<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+			<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+			<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+			<link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+			<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+			<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+		</head>
+		<body>
+			<!-- start navbar Area -->
+			  <header id="header">
+			    <div class="container">
+			    	<div class="row align-items-center justify-content-between d-flex">
+				      <div id="logo">
+				        <a href="#"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+				      </div>
+				      <nav id="nav-menu-container">
+				        <ul class="nav-menu">
+				          <li class="menu-active"><a href="#home">Home</a></li>
+				          <li><a href="#about">About</a></li>
+				          <li><a href="#fact">Contact</a></li>
+
+<!--				          <li><a href="#price">Price</a></li>-->
+							<li class="menu-has-children"><a href="#category">Category</a>
+				            <ul>
+								 {% for i in data %}
+				              <li><a href="{% url 'product' itemcat=i.categoryname %}">{{i.categoryname}}</a></li>
+								 {% endfor %}
+
+				            </ul>
+				          </li>
+				          <li class="menu-has-children"><a href="">Genres</a>
+							 <ul>
+								{% for i in gen %}
+				              <li><a href="{% url 'genres' itemcat=i.GenreName %}" >{{i.GenreName}}</a></li>
+								 {% endfor %}
+				            </ul>
+                    {% if request.session.usernamel %}
+<!--							<li class="menu-has-children"><a href="{% url 'cart' %}"><i class='bx bx-cart'></i> Cart</a>-->
+				          <li class="menu-has-children"><a href="">{{request.session.usernamel}}</a>
+                    {% else %}
+				          <li><a href="{% url 'userloginpage' %}">Sign up/Log in</a></li>
+                {% endif %}
+				            <ul>
+				              <li><a href="{% url 'cart' %}"><i class='bx bx-cart'></i> CART</a></li>
+				              <li><a href="{% url 'profile' %}">PROFILE</a></li>
+				              <li><a href="{% url 'userlogout' %}">LOGOUT</a></li>
+				            </ul>
+				          </li>
+
+<!--				          <li><a href="{% url 'cart' %}">Cart</a></li>-->
+
+				        </ul>
+
+				      </nav><!-- #nav-menu-container -->
+			    	</div>
+			    </div>
+			  </header>
+			<!-- end navbar Area -->
+
+
+			<!-- start banner Area -->
+			<section class="" style="background-image: url(https://wallpapercave.com/wp/wp4430590.jpg);background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;" id="home">
+				<div class="container">
+					<div class="row fullscreen d-flex align-items-center justify-content-start">
+						<div class="banner-content col-lg-7">
+<!--							<h5 class="text-white text-uppercase animated slideInLeft">Definition of a book</h5>-->
+							<h1 class="text-uppercase text-white  animated slideInLeft">
+									a book can change your life
+							</h1>
+							<p class="text-white pt-20 pb-20"><span class="text-home"></span></p>
+<!--							<a href="#" class="primary-btn text-uppercase animated slideInLef">Buy Now for $9.99</a>-->
+						</div>
+						<div class="col-lg-5 banner-right">
+							<img class="img-fluid" src="" alt="">
+						</div>												
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->	
+
+
+			<!-- Start about Area -->
+			<section class="bg-light section-gap info-area" id="about">
+				<div class="container">				
+					<div class="single-info row mt-40 align-items-center">
+						<div class="col-lg-6 col-md-12 text-center no-padding info-left">
+							<div class="info-thumb">
+								<img src="https://i.pinimg.com/originals/25/e9/2c/25e92cba3f7eec30c1d83304105bf51b.jpg" width="470px" class="img-fluid info-img home-img" alt="">
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-12 no-padding info-rigth">
+							<div class="info-content">
+								<h2 class="pb-30">Marcus Tullius Cicero</h2>
+								<p><span class="multiple-text"></span></p>
+								<h2 class="pb-30">Alberto Manguel</h2>
+								<p><span class="multiple-text1"></span></p>
+								<br>
+								<p>
+									"When I look back, I am so impressed again with the life-giving power of literature. If I were a young person today, trying to gain a sense of myself in the world, I would do that again by reading, just as I did when I was young." – Maya Angelou
+								</p>
+								<br>
+								<img src="" alt="">
+								</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End about Area -->
+		
+			<!-- Start fact Area -->
+			<section class=" relative section-gap" style="background-image: url(https://wallpaper.dog/large/340388.jpg);background-repeat: no-repeat;background-size: 100% 100%;" id="fact">
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-40 col-lg-8">
+							<div class="title text-center">
+								<h1 class="mb-10">Some Features that Made us Unique</h1>
+								<p>Who are in extremely love with eco friendly system.</p>
+								<p><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
+							</div>
+						</div>
+					</div>						
+				</div>	
+			</section>
+			<!-- End fact Area -->
+
+			<!-- Start counter Area -->
+			<section class="counter-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-6">
+							<div class="single-counter">
+								<h1 class="counter">2536</h1>
+								<p>Happy Clients</p>								
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="single-counter">
+								<h1 class="counter">6784</h1>
+								<p>Total Books</p>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="single-counter">
+								<h1 class="counter">6891</h1>
+								<p>Book Selling</p>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="single-counter">
+								<h1 class="counter">2239</h1>
+								<p>Booking Submitted</p>
+							</div>
+						</div>												
+					</div>
+				</div>	
+			</section>
+			<!-- end counter Area -->
+			
+			<!-- Start caregory Area -->
+			<section class="course-area section-gap bg-light" id="category">
+				<section class=" row" id="">
+					<div class="row  d-flex align-items-center justify-content-center">
+						{% for i in data %}
+						<div class="card d-flex align-items-center justify-content-center" style="width: 25rem;padding:90px">
+							<div style="padding: 20px;text-align: center;font-size:12px;">
+								<h1>{{i.categoryname}}</h1><br>
+								<p><strong>{{i.description}}</strong></p>
+								<a href="{% url 'product' itemcat=i.categoryname %}" class="btn btn-danger button">Click</a>
+							</div>
+							<div class="cover">
+								<div class="">
+									<div>
+										<h5></h5>
+										<img src="{{i.imagee.url}}" style="width:373px;height:320px;" >
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</section>
+			</section>
+			<!-- End category Area -->
+			
+			<!-- Start call-to-action Area -->
+			<section class="call-to-action-area section-gap">
+				<div class="container">
+					<div class="row justify-content-center top">
+						<div class="col-lg-12">
+							<h1 class="text-white text-center">Download Our App for all Platforms</h1>
+							<p class="text-white text-center mt-30">
+								It won’t be a bigger problem to find one video game lover in your neighbor. Since the introduction of Virtual Game, it has been achieving great heights so far as its popularity and technological advancement are concerned.
+							</p>							
+						</div>
+					</div>
+					<div class="row justify-content-center d-flex">	
+						<div class="download-button d-flex flex-row justify-content-center mt-30">		
+							<div class="buttons flex-row d-flex">
+								<i class="fa fa-apple" aria-hidden="true"></i>
+								<div class="desc">
+									<a href="#">
+										<p>
+											<span>Available</span> <br>
+											on App Store
+										</p>
+									</a>
+								</div>
+							</div>
+							<div class="buttons flex-row d-flex">
+								<i class="fa fa-android" aria-hidden="true"></i>
+								<div class="desc">
+									<a href="#">
+										<p>
+											<span>Available</span> <br>
+											on Play Store
+										</p>
+									</a>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>	
+			</section>
+			<!-- End call-to-action Area -->
+
+			
+
+			<!-- start footer Area -->		
+			<footer class="footer-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-5 col-md-6 col-sm-6">
+							<div class="single-footer-widget">
+								<h6>About Us</h6>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+								</p>
+								<p class="footer-text">
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								</p>								
+							</div>
+						</div>
+						<div class="col-lg-5  col-md-6 col-sm-6">
+							<div class="single-footer-widget">
+								<h6>Newsletter</h6>
+								<p>Stay update with our latest</p>
+								<div class="" id="mc_embed_signup">
+									<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+										<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+			                            	<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+			                            	<div style="position: absolute; left: -5000px;">
+												<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+											</div>
+
+										<div class="info"></div>
+									</form>
+								</div>
+							</div>
+						</div>						
+						<div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+							<div class="single-footer-widget">
+								<h6>Follow Us</h6>
+								<p>Let us be social</p>
+								<div class="footer-social d-flex align-items-center">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+									<a href="#"><i class="fa fa-dribbble"></i></a>
+									<a href="#"><i class="fa fa-behance"></i></a>
+								</div>
+							</div>
+						</div>							
+					</div>
+				</div>
+			</footer>	
+			<!-- End footer Area -->	
+
+			<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+			<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' %}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script src="{% static 'js/vendor/bootstrap.min.js"></script>
+			<script type="text/javascript" src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA' %}"></script>
+  			<script src="{% static 'js/easing.min.js' %}"></script>
+			<script src="{% static 'js/hoverIntent.js' %}"></script>
+			<script src="{% static 'js/superfish.min.js' %}"></script>
+			<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+			<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+			<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+			<script src="{% static 'js/jquery.sticky.js' %}"></script>
+			<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+			<script src="{% static 'js/parallax.min.js' %}"></script>
+			<script src="{% static 'js/waypoints.min.js' %}"></script>
+			<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+			<script src="{% static 'js/mail-script.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+<!--button color changing-->
+			<style>
+
+.button {
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #7d2ae8;
+  transition: all 0.8s ease;
+}
+.button:active {
+  transform: scale(0.96);
+}
+.button:before,
+.button:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+.button.animate::before {
+  top: -70%;
+  background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    10% 10%, 18% 18%;
+  animation: greentopBubbles ease-in-out 0.6s forwards infinite;
+}
+@keyframes greentopBubbles {
+  0% {
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+      40% 90%, 55% 90%, 70% 90%;
+  }
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+.button.animate::after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  animation: greenbottomBubbles ease-in-out 0.6s forwards infinite;
+}
+@keyframes greenbottomBubbles {
+  0% {
+    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+      70% -10%, 70% 0%;
+  }
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+    </style>
+<!--end button color changing-->
+
+<!--book flip animation-->
+			<style>
+
+      .card{
+         position:relative;
+         width:330px;
+         height:330px;
+         background:#f4f4f4;
+         justify-content: center;
+         align-items: center;
+         display: flex;
+         perspective: 100em;
+         margin:10px 40px;
+         box-shadow:30px 40px 40px rgba(0,0,0,0.2);
+      }
+      .cover{
+         position:absolute;
+         top:0px;
+         left:0px;
+         width:100%;
+         height:100%;
+         background: white;
+         transform-style: preserve-3d;
+         transform-origin: left;
+         transition:transform 1s;
+         font-size:30px;
+         font-weight: bold;
+      }
+      .card:hover .cover{
+         transform:rotateY(-120deg);
+      }
+      .coverFront{
+         position:absolute;
+         width:100%;
+         height:100%;
+         justify-content: center;
+         align-items:center;
+         display: flex;
+      }
+      .coverFront{
+         background: #f4f4f4;
+         text-align: center;
+         border-radius: 0px 10px 10px 0px ;
+         color:#333;
+      }
+
+      .sh_img{
+         width:100px;
+      }
+      .sh_btn{
+         border:0px;
+         background: dodgerblue;
+         border-radius: 5px;
+         padding:10px 20px;
+         color:#fff;
+         margin-top:10px;
+      }
+   </style>
+<!--book flip animation end-->
+
+<!--about image animation-->
+			<style>
+					.home-img{
+					 opacity: 0;
+             animation: zoomIn 1s ease forwards,floatImage 4s ease-in-out infinite;
+            animation-delay: 2s, 3s;
+					}
+					@keyframes zoomIn{
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatImage{
+            0%{
+                transform: translateY();
+            }
+            50%{
+                transform: translateY(-24px);
+            }
+            100%{
+                transform: translateY();
+            }
+        }
+				</style>
+<!--about image animation end-->
+
+<!--auto type-->
+			<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+			<script>
+    var typed=new Typed(".multiple-text",{
+        strings:["“A room without books is like a body without a soul.”","“Reading is an act of civilization; it’s one of the greatest acts of civilization because it takes the free raw material of the mind and builds castles of possibilities.”"],
+        typeSpeed:200,
+        backSpeed:10,
+        backDelay:1000,
+        loop:true,
+
+    })
+   </script>
+			<script>
+    var typed=new Typed(".multiple-text1",{
+        strings:["“Maybe this is why we read, and why in moments of darkness we return to books: to find words for what we already know.”","“Reading is an act of civilization; it’s one of the greatest acts of civilization because it takes the free raw material of the mind and builds castles of possibilities.”"],
+        typeSpeed:200,
+        backSpeed:10,
+        backDelay:1000,
+        loop:true,
+
+    })
+   </script>
+			<script>
+    var typed=new Typed(".text-home",{
+        strings:[" A book is a number of pieces of paper, usually with words printed on them, which are fastened together and fixed inside a cover of stronger paper or cardboard. Books contain information, stories, or poetry"],
+        typeSpeed:200,
+        backSpeed:10,
+        backDelay:1000,
+        loop:true,
+
+    })
+   </script>
+<!--auto type end-->
+
+<!--nav bar click color change-->
+		<style>
+			.nav-menu a:hover,
+        .nav-menu a.active{
+            color: #0ef;
+        }
+		</style>
+<!--nav bar click color change-->
+
+		</body>
+	</html>
+
+
+

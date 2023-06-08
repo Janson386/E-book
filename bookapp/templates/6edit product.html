@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% extends 'homepage.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body" style="width:1200px">
+                    <h4 class="card-title">ADD PRODUCT</h4>
+                    <form class="forms-sample"method="post" action="{% url 'updateproduct' dataid=data.id %}" enctype="multipart/form-data">
+                       {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" value="{{data.Name}}" name="Name" placeholder="Name">
+                      </div>
+                             <div class="form-group">
+                        <label for="exampleInputName1">Category</label>
+                           <select class="form-control"  value="{{data.Categoryname}}" name="Categoryname" aria-label="Default select example">
+                            {% for i in category_data %}
+                               <option class="bg-secondary p-3">{{i.categoryname}}</option>
+                            {% endfor %}
+                           </select>
+                           </div>
+
+
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Price</label>
+                        <input type="number" class="form-control" id="exampleInputCity1"value="{{data.Price}}" name="Price" placeholder="">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Author</label>
+                        <input type="text" class="form-control" id="exampleInputCity1"value="{{data.Author}}" name="Author" placeholder="name">
+                      </div><div class="form-group">
+
+                        <label for="exampleInputCity1">Publisher</label>
+                        <input type="text" class="form-control" id="exampleInputCity1"value="{{data.Publisher}}" name="Publisher" placeholder="publication">
+                      </div><div class="form-group">
+                        <label for="exampleInputCity1">Published on</label>
+                        <input type="date" class="form-control" id="exampleInputCity1" value="{{data.Date}}" name="Date" placeholder="date">
+                      </div>
+                                    <div class="form-group">
+                        <label for="exampleInputName1">Genres</label>
+                           <select class="form-control" name="Genres" aria-label="Default select example">
+                               <option class="">select</option>
+                               {% for i in Data%}
+                               <option class="bg-secondary p-3">{{i.GenreName}}</option>
+                               {% endfor %}
+                           </select>
+                           </div>
+                        <div class="form-group">
+                        <label for="exampleInputName1">Language</label>
+                           <select class="form-control" value="{{data.Language}}" name="Language" aria-label="Default select example">
+                               <option class="bg-secondary p-3">English</option>
+                               <option class="bg-secondary p-3">Tamil</option>
+                               <option class="bg-secondary p-3">Malayalam</option>
+                               <option class="bg-secondary p-3">Hindi</option>
+                               <option class="bg-secondary p-3">Korien</option>
+                           </select>
+                           </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Pages</label>
+                        <input type="number" class="form-control" id="exampleInputEmail4" value="{{data.Page}}" name="Page" placeholder="">
+                      </div><div class="form-group">
+                        <label for="exampleInputEmail3">Rating</label>
+                        <input type="number" class="form-control" id="exampleInputEmail4" value="{{data.Rating}}" name="Rating" placeholder="">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">About this book</label>
+                        <textarea class="form-control" id="exampleTextarea1" value="{{data.About}}" name="About" rows="4"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Image upload</label><br><br>
+                       <input type="file" value="{{data.Imagee}}" name="Imagee">
+                      </div>
+
+                      <button type="submit" class="btn btn-outline-primary mr-2"> Submit </button>
+                      <button type="reset" class="btn btn-outline-danger">Cancel</button>
+                    </form>
+                  </div>
+</body>
+</html>
+{% endblock %}

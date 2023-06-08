@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Profile</a>
+
+        <nav class="navbar">
+            <a href="{% url 'home' %}" style="--i:1;" class="">Home</a>
+<!--            <a href=""style="&#45;&#45;i:2;">about</a>-->
+<!--            <a href=""style="&#45;&#45;i:3;">skills</a>-->
+<!--            <a href=""style="&#45;&#45;i:4;">profile</a>-->
+<!--            <a href=""style="&#45;&#45;i:5;">contact</a>-->
+
+        </nav>
+    </header>
+<section class="home">
+    <div class="home-content">
+        <h3>Hello,it's me</h3>
+        <h1>{{request.session.usernamel}}</h1>
+        <h3>and i'm a<span class="multiple-text"></span></h3>
+        <p>Pexels. Pexels is a photo-sharing website made for photography enthusiasts where you can find and freely download 4K photos from many categories like Nature, Technology, Science, Abstract, and Food. .</p>
+        <div class="social-media">
+            <a href=""style="--i:7;"><i class='bx bxl-facebook'></i></a>
+            <a href=""style="--i:8;"><i class='bx bxl-instagram-alt'></i></a>
+            <a href=""style="--i:9;"><i class='bx bxl-youtube'></i></a>
+            <a href=""style="--i:10;"><i class='bx bxl-twitter'></i></a>
+        </div>
+        <a href=""onclick="window.print()" class="btn">Downlode cv</a>
+    </div>
+    <div class="home-img">
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+    </div>
+
+</section>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins',sans-serif;
+        }
+        body{
+            background: #1f242d;
+            color: #fff;
+        }
+        header{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 10%;
+            background: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .logo{
+            font-size: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: default;
+            opacity: 0;
+            animation: slideRight 1s ease forwards;
+        }
+        .navbar a{
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 35px;
+            transition: .3s;
+            opacity: 0;
+            animation: slideTop .5s ease forwards;
+            animation-delay: calc(.2s *var(--i));
+
+        }
+        .navbar a:hover,
+        .navbar a.active{
+            color: #0ef;
+        }
+        .home{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 70px 10% 0;
+        }
+        .home-img img{
+            max-width: 300px;
+            margin-top: 100px;
+            margin-right: -20px;
+            box-shadow: 0 0 10px #0ef;
+            border-radius: 300px;
+             opacity: 0;
+             animation: zoomIn 1s ease forwards,floatImage 4s ease-in-out infinite;
+            animation-delay: 2s, 3s;
+
+        }
+        .home-content{
+            max-width: 600px;
+            margin-top: 100px;
+
+
+        }
+        .home-content h3:nth-of-type(2){
+           margin-bottom: 30px;
+            animation: slideTop 1s ease forwards;
+            animation-delay: .7s;
+        }
+        .home-content h3{
+            font-size: 32px;
+            font-weight: 700;
+             opacity: 0;
+            animation: slideBottom 1s ease forwards;
+            animation-delay: .7s;
+        }
+        .home-content h3 span{
+            color: #0ef;
+
+        }
+        .home-content p{
+            font-size: 16px;
+             opacity: 0;
+            animation: slideRight 1s ease forwards;
+            animation-delay: 1s;
+        }
+        .home-content h1{
+        font-size: 56px;
+        font-weight: 700;
+        margin: -3px 0;
+        opacity: 0;
+        animation: slideLeft 1s ease forwards;
+        animation-delay: 1s;
+        }
+        .social-media a{
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid #0ef;
+            border-radius: 50%;
+            font-size: 20px;
+            color: #0ef;
+            text-decoration: none;
+            margin: 30px 15px 30px 0;
+            transition: o.5s ease ;
+            opacity: 0;
+            animation: slideTop 1s ease forwards;
+            animation-delay: calc(.2s *var(--i));
+
+        }
+        .social-media a:hover{
+            background: #0ef;
+            color: #1f242d;
+            box-shadow: 0 0 20px;
+        }
+        .btn{
+            display: inline-block;
+            padding: 12px 28px;
+            background: #0ef;
+            border-radius: 40px;
+            box-shadow: 0 0 10px #0ef;
+            font-size: 16px;
+            color: #1f242d;
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0;
+             animation: slideTop 1s ease forwards;
+            animation-delay: 2s;
+        }
+
+        /* keyframes animation */
+        @keyframes slideRight{
+            0%{
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+         @keyframes slideLeft{
+            0%{
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+         @keyframes slideTop{
+            0%{
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+         @keyframes slideBottom{
+            0%{
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+         @keyframes zoomIn{
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatImage{
+            0%{
+                transform: translateY();
+            }
+            50%{
+                transform: translateY(-24px);
+            }
+            100%{
+                transform: translateY();
+            }
+        }
+    </style>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+   <script>
+    var typed=new Typed(".multiple-text",{
+        strings:["Frontend Developer","Youtuer","Blogger"],
+        typeSpeed:100,
+        backSpeed:100,
+        backDelay:1000,
+        loop:true,
+
+    })
+   </script>
+</body>
+</html>
