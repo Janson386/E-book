@@ -7,6 +7,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
+from django.db.models import Sum
 
 
 
@@ -42,13 +43,12 @@ def singleproduct(request,dataid):
     data = acdb.objects.all()
     return render(request,"4single.html",{"data":data,"product":product,"gen":gen})
 
-def demo(request):
-    gen = apdb.objects.all()
-    return render(request,"demo.html",{"gen":gen})
 
 def cart(request):
     cart = carttdb.objects.filter(user=request.session['usernamel'])
-    return render(request,"5cart.html",{"cart":cart})
+    cart_session = carttdb.objects.filter(user=request.session['usernamel'])
+    grand_total=cart.aggregate(Sum("productprice"))["productprice__sum"]
+    return render(request,"5cart.html",{"cart":cart,"cart_session":cart_session,"grand_total":grand_total})
 
 def savecart(request):
     if request.method=="POST":
@@ -56,11 +56,15 @@ def savecart(request):
         na =request.POST.get('productname')
         pp = request.POST.get('productprice')
         pl =request.POST.get('productlanguage')
-        pdf =request.FILES['pdf']
-        obj=carttdb(productname=na,productprice=pp,user=un,productlanguage=pl,pdf=pdf)
+        product_id =request.POST.get('productimagee')
+        pimage =apdb.objects.get(id=product_id)
+        image=pimage.Imagee
+        pdf_id =request.POST.get('productpdf')
+        ppdf =apdb.objects.get(id=pdf_id)
+        PDF=ppdf.Pdf
+        obj=carttdb(productname=na,productprice=pp,user=un,productlanguage=pl,productimagee=image,pdf=PDF)
         obj.save()
-        messages.success(request, "Congratulations..! Your Order is Successfully..!")
-        return redirect(home)
+        return redirect(cart)
 
 def Deletecart(request,dataid):
     data=carttdb.objects.filter(id=dataid)
@@ -68,7 +72,9 @@ def Deletecart(request,dataid):
     return redirect(cart)
 
 def checkout(request):
-    return render(request,"6checkout.html")
+    cart = carttdb.objects.filter(user=request.session['usernamel'])
+    grand_total=cart.aggregate(Sum("productprice"))["productprice__sum"]
+    return render(request,"6checkout.html",{"cart":cart,"grand_total":grand_total})
 
 def savecheckout(request):
     if request.method=="POST":
@@ -77,7 +83,7 @@ def savecheckout(request):
         pn = request.POST.get('phonenumber')
         cty =request.POST.get('city')
         ste =request.POST.get('state')
-        obj=paymentdetaildb(fullname=fn,emaill=em,phonenumber=pn,city=cty,state=ste,)
+        obj=paymentdetaildb(fullname=fn,emaill=em,phonenumber=pn,city=cty,state=ste)
         obj.save()
         return redirect(home)
 
@@ -117,6 +123,18 @@ def userlogout(request):
         request.session.clear()
     return redirect(userloginpage)
 
+def purchaseinfo(request):
+    cart = carttdb.objects.filter(user=request.session['usernamel'])
+    grand_total = cart.aggregate(Sum("productprice"))["productprice__sum"]
+    return render(request, "8purchase info.html", {"cart": cart, "grand_total": grand_total})
+
 def profile(request):
     profile = custemerdetaildb.objects.filter(username=request.session['usernamel'])
     return render(request,"9 profile.html",{"profile":profile})
+
+
+def allbooks(request):
+    all=apdb.objects.all()
+    gen = gndb.objects.all()
+    data = acdb.objects.all()
+    return render(request,"10all books.html",{"all":all,"gen":gen,"data":data})

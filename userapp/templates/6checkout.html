@@ -16,7 +16,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Book</title>
+		<title>Book.com</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 			<!--
@@ -36,27 +36,12 @@
 		    <div class="container">
 		    	<div class="row align-items-center justify-content-between d-flex">
 			      <div id="logo">
-			        <a href="#"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+			        <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="" title="" /><span class="text-white"></span></a>
 			      </div>
 			      <nav id="nav-menu-container">
 			        <ul class="nav-menu">
 			          <li class="menu-active"><a href="{% url 'home' %}">Home</a></li>
 			          <li><a href="#checkout">Check Out</a></li>
-<!--			          <li><a href="{% static 'index.html#fact' %}">Fact</a></li>-->
-<!--			          <li><a href="{% static 'index.html#price' %}">Price</a></li>-->
-<!--			        	<li class="menu-has-children"><a href="#category">Category</a>-->
-<!--				            <ul>-->
-<!--								{% for i in data %}-->
-<!--				              <li><a href="{% url 'product' itemcat=i.categoryname %}">{{i.categoryname}}</a></li>-->
-<!--								 {% endfor %}-->
-
-<!--				            </ul>-->
-<!--				          </li>-->
-<!--				          <li class="menu-has-children"><a href="">Genres</a>-->
-<!--				            <ul>-->
-<!--									{% for i in gen %}-->
-<!--				              <li><a href="{% url 'genres' itemcat=i.GenreName %}" >{{i.GenreName}}</a></li>-->
-<!--								 {% endfor %}-->
 				            </ul>
 				          </li>
 			        </ul>
@@ -74,7 +59,7 @@
 						<div class="banner-content col-lg-7">
 							<h1 class="text-white text-uppercase">check out</h1>
 							<h1 class="text-uppercase"></h1>
-							<a href="#form" class="primary-btn text-uppercase">Total Amount $9.99</a>
+							<a href="#form" class="primary-btn text-uppercase">Total Amount ${{grand_total}}</a>
 						</div>
 						<div class="col-lg-5 banner-right">
 
@@ -91,11 +76,9 @@
 <div class="row " style=" padding:30px;border: 3px solid #ccc;border-radius: 4px;width:100%">
   <div class="col-75">
     <div class="container">
-      <form action="/action_page.php">
-
-        <div class="row d-flex align-items-center justify-content-center">
-			<form method="post" action="{% url 'savecheckout' %}" enctype="multipart/form-data">
+      <form method="post" action="{% url 'savecheckout' %}">
 				{% csrf_token %}
+        <div class="row d-flex align-items-center justify-content-center" id="form">
           <div class="col-50">
             <h3>Paying Details</h3><br>
             <label><i class="fa fa-user"></i> Full Name</label>
@@ -106,7 +89,6 @@
             <input type="text"  name="phonenumber" placeholder="0123456789">
             <label><i class="fa fa-institution"></i> City</label>
             <input type="text" name="city" placeholder="Ernakulam">
-
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
@@ -115,36 +97,33 @@
 
             </div>
           </div>
-			<!--payment start-->
-          <div class="col-50">
-            <h3>Payment</h3>
-            <label>Accepted Cards</label>
-            <div class="icon-container">
-              <i class="fa fa-cc-visa" style="color:navy;"></i>
-              <i class="fa fa-cc-amex" style="color:blue;"></i>
-              <i class="fa fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa fa-cc-discover" style="color:orange;"></i>
-            </div>
-            <label for="cname">Name on Card</label>
-            <input type="text" id="cname" name="cardname" placeholder="John More">
-            <label for="ccnum">Credit card number</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-            <label for="expmonth">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="September">
-            <div class="row">
-              <div class="col-50">
-                <label for="expyear">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2018">
-              </div>
-              <div class="col-50">
-                <label for="cvv">CVV</label>
-                <input type="text" id="cvv" name="cvv" placeholder="352">
-              </div>
-            </div>
-          </div>
-			<!--payment end-->
-		  <button type="submit"  class="btn">Continue to checkout</button>
-
+			<button type="submit" class="btn btn-primary launch" data-toggle="modal" data-target="#staticBackdrop"> <i class="fa fa-rocket"></i>Continue to checkout</button>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-right">
+					<i class="fa fa-close close" data-dismiss="modal"></i></div>
+				<div class="tabs mt-3">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation"> <a class="nav-link active" id="visa-tab" data-toggle="tab" href="#visa" role="tab" aria-controls="visa" aria-selected="true"> <img src="https://i.imgur.com/sB4jftM.png" width="80"> </a> </li>
+					<li class="nav-item" role="presentation"> <a class="nav-link" id="paypal-tab" data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal" aria-selected="false"> <img src="https://1000logos.net/wp-content/uploads/2023/03/Google-Pay-logo.png" width="80"> </a> </li></ul>
+					<div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
+						<div class="mt-4 mx-4"> <div class="text-center"> <h5>Credit card</h5> </div>
+							<div class="form mt-3"> <div class="inputbox">
+								<input type="text" name="name" class="form-control" required="required"> <span>Cardholder Name</span> </div>
+								<div class="inputbox">
+									<input type="number" name="name"  class="form-control" required="required"> <span>Card Number</span> <i class="fa fa-eye"></i> </div>
+								<div class="d-flex flex-row"> <div class="inputbox">
+									<input type="date" name="name"  class="form-control" required="required">  </div>
+									<div class="inputbox"> <input type="number" name="name" min="1" max="999" class="form-control" required="required"> <span>CVV</span> </div> </div>
+								<div class="px-5 pay">
+									<a href="{% url 'purchaseinfo' %}" type="submit" class="btn btn-success btn-block" onclick="alert('Payment Successfull Order Placed')">Pay ${{grand_total}}</a> </div> </div> </div> </div>
+						<div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab"> <div class="px-5 mt-5"> <div class="inputbox">
+							<input type="text" name="name" class="form-control" required="required"> <span>UPI Address</span> </div>
+							<div class="pay px-5"> <a  href="{% url 'purchaseinfo' %}" type="submit" class="btn btn-primary btn-block" onclick="alert('Payment Successfull Order Placed')">Pay ${{grand_total}}</a> </div> </div> </div> </div> </div> </div> </div> </div>
+</div>
 		</div>
       </form>
     </div>
@@ -152,13 +131,14 @@
 			<!--start total amount-->
   <div class="col-25 "style=" padding:30px;border: 1px solid #ccc;border-radius: 4px">
     <div class="container">
-      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-      <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-      <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-      <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-      <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b></b></span></h4><br>
+	  {% for i in cart %}
+      <p><a href="#">{{i.productname}}</a> <span class="price">$ {{i.productprice}}</span></p>
+<!--		<a href ="{{i.pdf.url}}" attributes-list type="hidden"> {{i.productname}} </a>-->
+	  {% endfor %}
       <hr>
-      <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+
+      <p>Total <span class="price" style="color:black"><b>$ {{grand_total}}</b></span></p>
 
     </div>
   </div>
@@ -174,14 +154,11 @@
 					<div class="row">
 						<div class="col-lg-5 col-md-6 col-sm-6">
 							<div class="single-footer-widget">
-								<h6>About Us</h6>
+									<h6>Copyright </h6>
 								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
 								</p>
 								<p class="footer-text">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+ &copy; 2023 Janson All rights reserved |
 								</p>
 							</div>
 						</div>
@@ -236,7 +213,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
 			<script src="{% static 'js/mail-script.js' %}"></script>
 			<script src="{% static 'js/main.js' %}"></script>
-
+<style>
+	.launch{height: 50px}.close{font-size: 21px;cursor: pointer}.modal-body{height: 450px}.nav-tabs{border:none !important}.nav-tabs .nav-link.active{color: #495057;background-color: #fff;border-color: #ffffff #ffffff #fff;border-top: 3px solid blue !important}.nav-tabs .nav-link{margin-bottom: -1px;border: 1px solid transparent;border-top-left-radius: 0rem;border-top-right-radius: 0rem;border-top: 3px solid #eee;font-size: 20px}.nav-tabs .nav-link:hover{border-color: #e9ecef #ffffff #ffffff}.nav-tabs{display: table !important;width: 100%}.nav-item{display: table-cell}.form-control{border-bottom: 1px solid #eee !important;border:none;font-weight: 600}.form-control:focus{color: #495057;background-color: #fff;border-color: #8bbafe;outline: 0;box-shadow: none}.inputbox{position: relative;margin-bottom: 20px;width: 100%}.inputbox span{position: absolute;top:7px;left: 11px;transition: 0.5s}.inputbox i{position: absolute;top: 13px;right: 8px;transition: 0.5s;color: #3F51B5}input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{-webkit-appearance: none;margin: 0}.inputbox input:focus~span{transform: translateX(-0px) translateY(-15px);font-size: 12px}.inputbox input:valid~span{transform: translateX(-0px) translateY(-15px);font-size: 12px}.pay button{height: 47px;border-radius: 37px}
+</style>
 
 <style>
 

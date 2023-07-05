@@ -16,7 +16,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Book</title>
+		<title>Book.com</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 			<!--
@@ -36,7 +36,7 @@
 		    <div class="container">
 		    	<div class="row align-items-center justify-content-between d-flex">
 			      <div id="logo">
-			        <a href="#"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+<!--			        <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="" title="" /><span class="text-white"></span></a>-->
 			      </div>
 			      <nav id="nav-menu-container">
 			        <ul class="nav-menu">
@@ -66,11 +66,11 @@
 		  </header><!-- #header -->
 
 			<!-- start banner Area -->
-			<section class="banner-area"  style="background-image: url(https://wallpapercave.com/wp/wp2036944.jpg);background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;" id="home">
+			<section class="banner-area"  style="background-image: url(https://wallpapercave.com/wp/wp2036944.jpg);background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;">
 				<div class="container">
 					<div class="row fullscreen d-flex align-items-center justify-content-start">
-						<div class="banner-content col-lg-7">
-							<h1 class="text-uppercase">{{product.Categoryname}}</h1>
+						<div class="banner-content col-lg-7 container-fluid" id="quotes-container">
+							<h1 class="text-uppercase quote">{{product.Categoryname}}</h1>
 							<h2 class="text-white text-uppercase">{{product.Name}}</h2>
 							<p class="text-white pt-20 pb-20">
 							{{product.About}}
@@ -96,16 +96,18 @@
 									{% csrf_token %}
 									<div class="row g-0">
 										<div class="col-md-4">
-											<img src="{{product.Imagee.url}}" name="" style="width:340px;height:500px" class= alt="...">
-<!--						<input type="image" name="productimagee" value="{{product.Imagee.url}}">-->
+
+											<img src="{{product.Imagee.url}}" name="" style="width:340px;height:500px" class="home-img" alt="...">
+
+											<input type="hidden" name="productimagee" value="{{product.id}}">
 										</div>
 										<div class="col-md-8">
 						<div class="card-body">
-							<h1 class="card-title">{{product.Name}}</h1>
+							<h2 class="card-title">{{product.Name}}</h2>
 							<input type="hidden" class="form-control" id="" value="{{request.session.usernamel}}"  name="user">
-							<input type="hidden" name="pdf" value="{{product.Pdf}}">
+							<input type="hidden" name="productpdf" value="{{product.id}}">
 							<input type="hidden" name="productname" value="{{product.Name}}">
-							<p class="card-text">{{product.Author}}</p>
+							<span>by <a href="{{product.AuthorLink}}">{{product.Author}}</a> (author)</span><br><br>
 							<h6 class="card-text">{{product.Publisher}}</h6><br><br>
 							<input type="hidden" name="productlanguage" value="{{product.Language}}">
 									<div class="row row-cols-5">
@@ -133,16 +135,22 @@
 										</div>
 									</div>
 							<div class="section-top-border">
-						<h4 class="mb-30">About</h4>
+						<h4 class="mb-">About</h4>
 						<div class="row">
 							<div class="col-lg-18">
 								<blockquote class="generic-blockquote">{{product.About}}</blockquote>
 							</div>
-						</div>	<button href="" class="genric-btn danger"> <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+						</div>
+                    {% if request.session.usernamel %}
+								<button href="" class="button genric-btn danger" onclick="alert('Item added to cart')"> <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
   <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
 </svg></span> Add</button>
-<!--									<a href="" class="genric-btn danger">Purchase Now</a>-->
-									<a class="genric-btn danger" data-bs-toggle="collapse" href="#collapseWidthExample" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
+                    {% else %}
+								<a href="{% url 'userloginpage' %}" class="button genric-btn danger" onclick="alert('Please Login to Continue')"> <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
+</svg></span> Add</a>
+								{% endif %}<!--									<a href="" class="genric-btn danger">Purchase Now</a>-->
+									<a class="button genric-btn danger" data-bs-toggle="collapse" href="#collapseWidthExample" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
   <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
   <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
 </svg></span> Info</a>
@@ -151,11 +159,7 @@
 
 					<input type="hidden" id="price" name="productprice" value="{{product.Price}}" >
 							</div></div><br>
-
-
-
-								</div>
-						</div>
+									</div>
 				</form>
 					</div>
 					</div>
@@ -218,7 +222,7 @@
 								</div><div class="table-row">
 									<div class="serial">11</div>
 									<div class="country">About</div>
-								<blockquote class="multiple-text"></blockquote>
+								<blockquote class="multiple-text">{{product.About}}</blockquote>
 								</div>
 						</div>
 					</div></div>
@@ -234,14 +238,10 @@
 					<div class="row">
 						<div class="col-lg-5 col-md-6 col-sm-6">
 							<div class="single-footer-widget text-white">
-								<h6>About Us</h6>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
-								</p>
+								<h6>Copyright</h6>
 								<p class="footer-text text-white">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+ &copy; 2023 Janson All rights reserved |
+
 								</p>
 							</div>
 						</div>
@@ -297,40 +297,102 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<script src="{% static 'js/mail-script.js' %}"></script>
 			<script src="{% static 'js/main.js' %}"></script>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        var quotes = $('#quotes-container .quote');
+        var quoteIndex = -1;
+
+        function showNextQuote() {
+            ++quoteIndex;
+            quotes.eq(quoteIndex % quotes.length)
+                .fadeIn(2000)
+                .delay(1000)
+                .fadeOut(2000, showNextQuote);
+        }
+
+            showNextQuote();
+        });
+    </script>
 
 
-	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    {% if messages %}
-        {% for i in messages %}
-            {% if i.tags == 'warning' %}
-                <script>
-                    swal('{{i}}','','warning' );
-                </script>
-            {% elif i.tags == 'error' %}
-                <script>
-                    swal('{{i}}','','error' );
-                </script>
-            {% else %}
-                <script>
-                    swal('{{i}}','','success' );
-                </script>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
 		<style>
 			.nav-menu a:hover,
         .nav-menu a.active{
             color: #0ef;
         }
 		</style>
-		  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-   <script>
-    var typed=new Typed(".multiple-text",{
-        strings:["{{product.About}}"],
-        typeSpeed:100,
-        backSpeed:10,
-        backDelay:1000,
-    })
-   </script>
+
+		<style>
+.button {
+  border-radius: 2px;
+  background-color: ;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+<!--  font-size: 14px;-->
+<!--  padding: 8px;-->
+<!--  height:51px;-->
+  transition: all 0.8s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -30px;
+  transition: 0.8s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
+			<style>
+			.home-img{
+			 opacity: 0;
+             animation: zoomIn 1s ease forwards,floatImage 2s ease-in-out infinite;
+            animation-delay: 1s;
+					}
+					@keyframes zoomIn{
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatImage{
+            0%{
+                transform: translateY();
+            }
+            50%{
+                transform: translateY(-24px);
+            }
+            100%{
+                transform: translateY();
+            }
+        }
+				</style>
+
+
 		</body>
 	</html>

@@ -17,12 +17,16 @@
       <h2>Sign In</h2>
       <label>
         <span>User Name</span>
-        <input type="text" name="usernamel">
+        <input type="text" name="usernamel" required>
       </label>
       <label>
         <span>Password</span>
-        <input type="password" name="passwordl">
+        <input type="password" name="passwordl" required>
+          {% if form.errors %}
+                    <p style="color:red;">Invalid username or password.</p>
+                {% endif %}
       </label>
+
       <button class="submit" type="submit">Sign In</button>
 
 
@@ -31,7 +35,7 @@
           <li><img src="https://cdn-icons-png.flaticon.com/128/2111/2111463.png"></li>
           <li><img src="https://cdn-icons-png.flaticon.com/128/4494/4494475.png"></li>
           <li><img src="https://cdn-icons-png.flaticon.com/128/1402/1402180.png"></li>
-          <li><img src="https://cdn-icons-png.flaticon.com/128/733/733585.png"></li>
+<!--          <li><img src="https://cdn-icons-png.flaticon.com/128/733/733585.png"></li>-->
         </ul>
       </div>
     </div>

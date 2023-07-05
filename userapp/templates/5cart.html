@@ -16,7 +16,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Book</title>
+		<title>Book.com</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 			<!--
@@ -32,33 +32,16 @@
 		</head>
 		<body>
 		  <!-- start navbar  -->
-		  <header id="header" id="home">
+		  <header id="header" id="">
 		    <div class="container">
 		    	<div class="row align-items-center justify-content-between d-flex">
 			      <div id="logo">
-			        <a href="#"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
+			        <a href="{% url 'home' %}" ><img src="{% static 'img/logo.png' %}" alt="" title="" /><span class="text-white"></span></a>
 			      </div>
 			      <nav id="nav-menu-container">
-			        <ul class="nav-menu">
-			          <li class="menu-active"><a href="{% url 'home' %}">Home</a></li>
-<!--			          <li><a href="{% static 'index.html#about' %}">About</a></li>-->
-			          <li><a href="#cart">Cart</a></li>
-<!--			          <li><a href="{% static 'index.html#price' %}">Price</a></li>-->
-<!--			        	<li class="menu-has-children"><a href="#category">Category</a>-->
-<!--				            <ul>-->
-<!--								{% for i in data %}-->
-<!--				              <li><a href="{% url 'product' itemcat=i.categoryname %}">{{i.categoryname}}</a></li>-->
-<!--								 {% endfor %}-->
-
-<!--				            </ul>-->
-<!--				          </li>-->
-<!--				          <li class="menu-has-children"><a href="">Genres</a>-->
-<!--				            <ul>-->
-<!--									{% for i in gen %}-->
-<!--				              <li><a href="{% url 'genres' itemcat=i.GenreName %}" >{{i.GenreName}}</a></li>-->
-<!--								 {% endfor %}-->
-<!--				            </ul>-->
-<!--				          </li>-->
+			        <ul class="nav-menu ">
+			          <li class="menu-active "><a href="{% url 'home' %}">Home</a></li>
+			          <li ><a href="#cart">Cart</a></li>
 			        </ul>
 			      </nav>
 		    	</div>
@@ -71,7 +54,7 @@
 				<div class="container">
 					<div class="row fullscreen d-flex align-items-center justify-content-start">
 						<div class="banner-content col-lg-7">
-							<h5 class="text-white text-uppercase animated slideInLeft">Hello !</h5>
+							<h5 class="text-black text-uppercase animated slideInLeft">Hello !</h5>
 							<h1 class="text-white text-uppercase">{{request.session.usernamel}}</h1><br>
 							<a href="#cart" class="primary-btn text-uppercase">Your Order</a>
 						</div>
@@ -84,7 +67,7 @@
 				</div>
 			</section>
 		  <!-- end banner area -->
-
+			{% if cart_session %}
 		  <!-- start cart content -->
           <section class="h-100 gradient-custom banner-area" id="cart" >
   <div class="container py-5">
@@ -92,7 +75,7 @@
       <div class="col-md-8">
         <div class="card mb-4">
           <div class="card-header py-3"style="background-color: #d2c9ff;">
-            <h5 class="mb-0">Cart - items</h5>
+            <h5 class="mb-0">Cart - items <img src="https://media1.giphy.com/media/Aik2hwXn0dUTrVkbIP/giphy.gif?cid=6c09b952bra2rkd5scoxo9r6f3bmhsk3aqf42kvh8a1ziwr1&ep=v1_stickers_related&rid=giphy.gif&ct=s" height="40px" width="40px"></h5>
           </div>
           <div class="card-body">
 				  {% for i in cart %}
@@ -100,7 +83,7 @@
               <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                 <!-- Image -->
                 <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                  <img src="https://images.pexels.com/photos/264547/pexels-photo-264547.jpeg?cs=srgb&dl=pexels-pixabay-264547.jpg&fm=jpg" width="100px"height="100px" />
+                  <img src="{{i.productimagee.url}}" width="100px"height="100px" />
                   <a href="#!">
                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                   </a>
@@ -123,13 +106,13 @@
                 </div>
                 <h5 class="text-start text-md-center">
 				  <label>Price :</label>
-                  <strong>$. {{i.productprice}}</strong>
+                  <strong>$ {{i.productprice}}</strong>
 <!--					  <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"-->
 <!--                  title="Remove item">-->
 <!--					<a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAThJREFUSEvVle01BEEQRe9GgAgQASJABIgAESACZEAEyGBFgAjIABkQAec61XNmes32ztneH1u/pj+qXterVzUjFmyjBcdnCMAq8ARsx6OegSPga9ojhwCMgYMs2AVwUwPAIGfAd2RwHutr4GpegBPgLoLsAG/AB7AOpHUvRoki+X4N71PgPjJw7xPYKIlkGoDOBrK4t4C0aImu9t5MGewFFfmrHoHDVoRET19Qz81WlXVk2ue4lknRGmwVqDHWZg7wE06Jtnxdojudd/zaNVgKAOtotzcKq52BMj4GmgasCaCc30PWFthCd1Q0bw1Sx78AUvVnNTNQ97vRA1JVFcDmlB6Hod/NCK+VgRP1EngApKqxNoCoK7N2U8+9/TQi/qPIwsidY3ioSY1DcOLfUBrXQ4Em7i8/wC/AX0YZwIqJ7wAAAABJRU5ErkJggg=="/></a>-->
 <!--                </button>-->
 					<form action="{% url 'Deletecart' dataid=i.id %}">
-                <button type="submit" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                <button type="submit" class="genric-btn danger"  data-mdb-toggle="tooltip"
                   title="Move to the wish list">
 					<a><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAJhJREFUSEvtlcsNgDAMQ18nYARgE0aByWAURoEN2ABUiXKgROajXlB7bRLbSVo7Eh+XuD4KoAF6oDKITEAHjBZRBeALlEKlj6nfAqx7okVE3csWqQLqPgIICV9nfyg+S08OEJhL6SeJZvzr4WWAPINjB/IWyYf53xYtQPHwS52vnM9qkbfK4YabBQ6+eHtlncoyH4qIw5MDbKVmKBnjiikFAAAAAElFTkSuQmCC"/></a>
                 </button>
@@ -175,24 +158,28 @@
           </div>
           <div class="card-body ">
             <ul class="list-group list-group-flush ">
+				  {% for i in cart %}
+
               <li
                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 ">
-               <h5>Products</h5>
-                <h5><span>$53.98</span></h5>
-              </li>
+               <h5>{{i.productname}}</h5>
+                <h5><span></span>${{i.productprice}}</h5>
+              </li><br>
+			{% endfor %}
+
               <li class="list-group-item d-flex justify-content-between align-items-center px-0 ">
-				   <h5>Items</h5>
-                <h5><span>$. {{i.productprice}}</span></h5>
+				   <h5></h5>
+                <h5><span></span></h5>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3 ">
                 <div>
 					<h5><strong>Total amount</strong></h5>
                   <strong>
-                    including VAT
+
                   </strong>
                 </div>
-                <span><strong>$53.98</strong></span>
+                <h4>${{grand_total}}</h4>
               </li>
             </ul>
 
@@ -207,21 +194,24 @@
   </div>
 </section>
 		  <!-- end cart content -->
-
+			{% else %}
+		   <div style="text-align: center;">
+            <img src="https://img.freepik.com/free-vector/empty-concept-illustration_114360-1233.jpg?w=740&t=st=1680200989~exp=1680201589~hmac=3aed62fb1c8a78d1bf8f9d290933966f8be87c28f9281c2a8a1a3cb4c065c6c5" width="400" height="400" class="img-fluid img-mobile-size">
+            <p>Your cart is empty.</p>
+            <a href="{% url 'allbooks' %}" style="font-size: 12px;" class="btn btn-outline-success">Continue shopping</a>
+        	</div><br><br>
+		 	 {% endif %}
 			<!-- start footer Area -->
 			<footer class="footer-area section-gap">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-5 col-md-6 col-sm-6">
 							<div class="single-footer-widget">
-								<h6>About Us</h6>
+									<h6>Copyright </h6>
 								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
 								</p>
 								<p class="footer-text">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+ &copy; 2023 Janson All rights reserved |
 								</p>
 							</div>
 						</div>

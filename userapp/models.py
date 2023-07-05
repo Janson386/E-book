@@ -16,6 +16,7 @@ class carttdb(models.Model):
     productprice = models.CharField(max_length=100, null=True, blank=True)
     productlanguage = models.CharField(max_length=100, null=True, blank=True)
     pdf=models.FileField(upload_to="document",null=True,blank=True)
+    productimagee=models.ImageField(upload_to="profile",null=True,blank=True)
 
 
 class paymentdetaildb(models.Model):

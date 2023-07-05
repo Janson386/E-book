@@ -18,6 +18,7 @@ class apdb(models.Model):
     Categoryname=models.CharField(max_length=30,null=True,blank=True)
     Price=models.IntegerField(null=True,blank=True)
     Author=models.CharField(max_length=30,null=True,blank=True)
+    AuthorLink=models.CharField(max_length=30,null=True,blank=True)
     Publisher=models.CharField(max_length=30,null=True,blank=True)
     Date=models.DateTimeField(null=True,blank=True)
     Genres=models.CharField(max_length=30,null=True,blank=True)

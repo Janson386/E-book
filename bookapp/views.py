@@ -82,6 +82,7 @@ def saveproduct(request):
         cat=request.POST.get("Categoryname")
         prc=request.POST.get("Price")
         autr=request.POST.get("Author")
+        autrlink=request.POST.get("AuthorLink")
         pub=request.POST.get("Publisher")
         date=request.POST.get("Date")
         gen=request.POST.get("Genres")
@@ -91,7 +92,7 @@ def saveproduct(request):
         abt=request.POST.get("About")
         img=request.FILES["Imagee"]
         pdf=request.FILES["Pdf"]
-        obj=apdb(Name=na,Categoryname=cat,Genres=gen,Price=prc,Author=autr,Publisher=pub,Date=date,Language=lng,Rating=rate,Page=pg,About=abt,Imagee=img,Pdf=pdf)
+        obj=apdb(Name=na,Categoryname=cat,Genres=gen,Price=prc,Author=autr,AuthorLink=autrlink,Publisher=pub,Date=date,Language=lng,Rating=rate,Page=pg,About=abt,Imagee=img,Pdf=pdf)
         obj.save()
         messages.success(request, "Congratulations..! Your Product added Successfully..!")
         return redirect(addproduct)
@@ -112,6 +113,7 @@ def updateproduct(request,dataid):
         ne = request.POST.get("Name")
         cat = request.POST.get("Categoryname")
         autr = request.POST.get("Author")
+        autrlink = request.POST.get("AuthorLink")
         pub = request.POST.get("Publisher")
         date = request.POST.get("Date")
         gen = request.POST.get("Genres")
@@ -126,7 +128,7 @@ def updateproduct(request,dataid):
         file=fs.save(img.name,img)
     except MultiValueDictKeyError:
         file=apdb.objects.get(id=dataid).Imagee
-    apdb.objects.filter(id=dataid).update(Name=ne,Categoryname=cat,Author=autr,Language=lng,Publisher=pub,Date=date,Genres=gen,Price=prc,Rating=rate,Page=pg,About=abt)
+    apdb.objects.filter(id=dataid).update(Name=ne,Categoryname=cat,Author=autr,AuthorLink=autrlink,Language=lng,Publisher=pub,Date=date,Genres=gen,Price=prc,Rating=rate,Page=pg,About=abt)
     return redirect(displayproduct)
 
 def deleteproduct(request,dataid):
